@@ -1,0 +1,50 @@
+/* Reset des marges par défaut */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style de la barre noire fixe */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Espacement automatique des éléments */
+    align-items: center; /* Centrer verticalement */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 5px 0; /* Espacement interne */
+    text-align: center;
+    z-index: 9999; /* Mettre la barre noire au-dessus du contenu */
+}
+
+/* Style du bouton dans la navbar */
+.navbar button {
+    padding: 8px 15px; /* Espacement interne */
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.navbar button img {
+    width: 20px;
+    height: 20px;
+}
+.navbarTitle {
+    margin-left: 20px;
+}
+
+
+/* Style pour décaler le contenu sous la barre noire */
+.content {
+    padding-top: 50px; /* Pour compenser la hauteur de la barre noire */
+}
+
+/* Wrapper pour le contenu */
+.content-wrapper {
+    max-width: 800px; /* Largeur maximale du contenu */
+    margin: 0 auto; /* Centrer le contenu */
+    padding: 20px; /* Espacement autour du contenu */
+}
