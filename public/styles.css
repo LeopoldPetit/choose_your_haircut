@@ -44,7 +44,15 @@ body {
 
 /* Wrapper pour le contenu */
 .content-wrapper {
-    max-width: 800px; /* Largeur maximale du contenu */
-    margin: 0 auto; /* Centrer le contenu */
+    width: 100%; /* Utilise toute la largeur disponible */
     padding: 20px; /* Espacement autour du contenu */
+    box-sizing: border-box; /* Inclut le padding dans la largeur */
+    margin: 0 auto; /* Centre le contenu horizontalement */
+    max-width: 100%; /* Limite la largeur à 100% de la largeur parente */
+}
+.hover-background {
+    transition: background-color 0.3s ease;
+    border-radius: 10px; /* Rayon de 10 pixels pour les coins arrondis */
+    padding: 10px; /* Ajoute un peu de marge intérieure pour l'apparence */
+    margin-bottom: 5px; /* Ajoute un peu d'espace entre chaque élément */
 }
