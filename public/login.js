@@ -18,7 +18,7 @@ function validateLogin() {
                 window.location.href = 'http://localhost:3000';
 
             } else {
-                document.getElementById('loginMessage').innerText = 'Nom d\'utilisateur ou mot de passe incorrect.';
+                alert('Mauvais login et/ou mot de passe.');
             }
         })
         .catch(error => {
