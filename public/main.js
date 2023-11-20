@@ -21,6 +21,10 @@ function fetchCoiffeurs(page) {
                     `;
                 div.classList.add('hover-background');
                 coiffeursList.appendChild(div);
+                div.addEventListener('click', () => {
+                    switchLayout();
+                });
+
 
                 // Gestion du changement de couleur au survol
                 div.addEventListener('mouseenter', () => {
@@ -37,14 +41,50 @@ function fetchCoiffeurs(page) {
 }
 
 // Gestion du scroll pour charger de nouveaux coiffeurs
-window.addEventListener('scroll', () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+const contentWrapper = document.getElementById('contentWrapper');
+
+// Ajout de l'événement de défilement à contentWrapper
+contentWrapper.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = contentWrapper;
     if (scrollHeight - scrollTop === clientHeight && !loading) {
         loading = true;
         const currentPage = document.querySelectorAll('.hover-background').length / 5 + 1;
         fetchCoiffeurs(currentPage);
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const contentWrapper = document.getElementById('contentWrapper');
+    const coiffeursList = document.getElementById('coiffeursList');
+    const coiffeurDetailsContainer = document.createElement('div');
+    coiffeurDetailsContainer.id = 'coiffeurDetailsContainer';
+    document.body.appendChild(coiffeurDetailsContainer);
+
+    coiffeursList.addEventListener('click', (event) => {
+        const coiffeurElement = event.target.closest('.hover-background');
+        if (coiffeurElement) {
+            // Simuler le changement de largeur de la partie droite
+            contentWrapper.classList.toggle('hide-right-section');
+        }
+    });
+});
+
+function switchLayout() {
+    const firstColumn = document.getElementById('contentWrapper');
+    const secondColumn = document.getElementById('otherContent');
+
+    if (firstColumn.classList.contains('first-column')) {
+        firstColumn.style.width = '50%';
+        secondColumn.style.width = '50%';
+    } else {
+        firstColumn.style.width = '100%';
+        secondColumn.style.width = '0';
+    }
+    firstColumn.classList.toggle('first-column');
+    secondColumn.classList.toggle('second-column');
+}
+
+
 function openLoginPage() {
     window.location.href = 'http://localhost:3000/login.html';
 }
