@@ -22,7 +22,7 @@ function fetchCoiffeurs(page) {
                 div.classList.add('hover-background');
                 coiffeursList.appendChild(div);
                 div.addEventListener('click', () => {
-                    switchLayout();
+                    displayCoiffeurDetails(coiffeur);
                 });
 
 
@@ -52,6 +52,66 @@ contentWrapper.addEventListener('scroll', () => {
         fetchCoiffeurs(currentPage);
     }
 });
+const otherContent = document.getElementById('otherContent');
+
+otherContent.addEventListener('wheel', (event) => {
+    event.preventDefault(); // Bloque le défilement
+});
+
+function displayCoiffeurDetails(coiffeur) {
+    const mapContainer = document.createElement('div');
+    mapContainer.id = 'map'; // Identifiant du conteneur de la carte
+    mapContainer.style.margin = '0 20px';
+    mapContainer.style.height = '400px'; // Hauteur de la carte (modifiable)
+    const coiffeurDetailsContainer = document.getElementById('coiffeurDetailsContainer');
+    coiffeurDetailsContainer.innerHTML = `
+        <div class="coiffeur-details">
+        <div class="detail-row">
+            <strong class="detail-label">Nom:</strong>
+            <span class="detail-value"><strong>${coiffeur.nom}</strong></span>
+        </div>
+        <div class="detail-row">
+            <strong class="detail-label">Numéro:</strong>
+            <span class="detail-value">${coiffeur.numero}</span>
+        </div>
+        <div class="detail-row">
+            <strong class="detail-label">Voie:</strong>
+            <span class="detail-value">${coiffeur.voie}</span>
+        </div>
+        <div class="detail-row">
+            <strong class="detail-label">Code postal:</strong>
+            <span class="detail-value">${coiffeur.code_postal}</span>
+        </div>
+        <div class="detail-row">
+            <strong class="detail-label">Ville:</strong>
+            <span class="detail-value">${coiffeur.ville}</span>
+        </div>
+    </div>
+    
+    
+    `;
+
+    // Afficher la nouvelle partie
+    const secondColumn = document.getElementById('otherContent');
+    secondColumn.innerHTML = ''; // Efface le contenu précédent s'il y en avait
+    secondColumn.appendChild(coiffeurDetailsContainer);
+    secondColumn.appendChild(mapContainer);
+    const map = L.map('map').setView([coiffeur.latitude, coiffeur.longitude], 13);
+
+    // Ajouter une couche de tuiles OpenStreetMap à la carte
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Ajouter un marqueur à l'emplacement du coiffeur
+    L.marker([coiffeur.latitude, coiffeur.longitude]).addTo(map)
+        .bindPopup(`<b>${coiffeur.nom}</b><br>${coiffeur.voie}, ${coiffeur.code_postal}, ${coiffeur.ville}`)
+        .openPopup();
+    switchLayout(); // Appel de la fonction pour basculer le layout
+
+
+
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const contentWrapper = document.getElementById('contentWrapper');
@@ -69,6 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+
 function switchLayout() {
     const firstColumn = document.getElementById('contentWrapper');
     const secondColumn = document.getElementById('otherContent');
@@ -80,6 +142,8 @@ function switchLayout() {
         firstColumn.style.width = '100%';
         secondColumn.style.width = '0';
     }
+    firstColumn.style.transition = 'width 0.5s ease-in-out';
+    secondColumn.style.transition = 'width 0.5s ease-in-out';
     firstColumn.classList.toggle('first-column');
     secondColumn.classList.toggle('second-column');
 }

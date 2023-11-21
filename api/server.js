@@ -26,7 +26,7 @@ app.get('/api/coiffeurs/:page', (req, res) => {
     });
 
     db.all(
-        'SELECT nom, numero, voie, code_postal, ville FROM coiffeurs LIMIT ? OFFSET ?',
+        'SELECT nom, numero, voie, code_postal, ville, latitude, longitude FROM coiffeurs LIMIT ? OFFSET ?',
         [limit, offset],
         (err, rows) => {
             if (err) {

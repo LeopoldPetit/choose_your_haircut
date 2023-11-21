@@ -27,6 +27,7 @@ body {
     height: 100%;
     padding-top: 60px;
     overflow: auto; /* Permet le défilement si nécessaire */
+
 }
 
 .first-column {
@@ -38,6 +39,7 @@ body {
     width: 0;
     overflow: hidden; /* Masque le contenu s'il dépasse */
     transition: width 0.5s ease-in-out; /* Transition pour une animation fluide */
+
 }
 
 #loginButton,
@@ -48,6 +50,38 @@ body {
     border-radius: 5px;
     cursor: pointer;
     margin-right: 20px;
+}
+
+#coiffeurDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    padding-top: 70px;
+}
+
+#otherContent{
+    margin-outside: 10px;
+    background-color: lightgray;
+    overflow-y: hidden;
+
+}
+.coiffeur-details strong {
+    font-weight: bold;
+}
+.coiffeur-details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 10px;
+}
+
+.detail-label {
+    font-weight: bold;
+}
+
+.detail-row {
+    display: contents;
 }
 
 .navbar button img {
